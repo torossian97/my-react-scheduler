@@ -22,10 +22,10 @@ function App() {
         <Route path="/scheduler-editor" element={
           <div>
             <NylasSchedulerEditor
-              schedulerPreviewLink={`${window.location.origin}/my-react-scheduler/?config_id={config.id}`}
+              schedulerPreviewLink={`${window.location.origin}/?config_id={config.id}`}
               nylasSessionsConfig={{
                 clientId: "364f30e8-df03-4555-9730-ce79f7e467b2", // Replace with your Nylas client ID from the previous
-                redirectUri: `${window.location.origin}/my-react-scheduler/scheduler-editor`,
+                redirectUri: `${window.location.origin}/scheduler-editor`,
                 domain: "https://api-staging.us.nylas.com/v3", // or 'https://api.eu.nylas.com/v3' for EU data center
                 hosted: true,
                 accessType: 'offline',
