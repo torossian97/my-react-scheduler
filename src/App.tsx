@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   // Get the configuration ID from the URL query string
   const urlParams = new URLSearchParams(window.location.search);
-  const configId = urlParams.get("config_id") || "";
+  const Id = urlParams.get("config_id") || urlParams.get("booking_id") || "";
 
   return (
     <BrowserRouter>
@@ -14,8 +14,24 @@ function App() {
           <div>
             <a href="/scheduler-editor" className="button">View Scheduler Editor</a>
             <NylasScheduling
-              configurationId={configId}
-              schedulerApiUrl="https://api-staging.us.nylas.com"
+              configurationId={Id}
+              schedulerApiUrl="https://api.us.nylas.com"
+            />
+          </div>
+        } />
+        <Route path="/reschedule" element={
+          <div>
+            <NylasScheduling
+              rescheduleBookingId={Id}
+              schedulerApiUrl="https://api.us.nylas.com"
+            />
+          </div>
+        } />
+        <Route path="/cancel" element={
+          <div>
+            <NylasScheduling
+              cancelBookingId={Id}
+              schedulerApiUrl="https://api.us.nylas.com"
             />
           </div>
         } />
@@ -24,11 +40,20 @@ function App() {
             <NylasSchedulerEditor
               schedulerPreviewLink={`${window.location.origin}/?config_id={config.id}`}
               nylasSessionsConfig={{
-                clientId: "364f30e8-df03-4555-9730-ce79f7e467b2", // Replace with your Nylas client ID from the previous
+                clientId: "53bbaecc-13e7-42c8-be42-e900c780765a", // Replace with your Nylas client ID from the previous
                 redirectUri: `${window.location.origin}/scheduler-editor`,
-                domain: "https://api-staging.us.nylas.com/v3", // or 'https://api.eu.nylas.com/v3' for EU data center
+                domain: "https://api.us.nylas.com/v3", // or 'https://api.eu.nylas.com/v3' for EU data center
                 hosted: true,
                 accessType: 'offline',
+              }}
+              defaultSchedulerConfigState={{
+                  selectedConfiguration: {
+                    requires_session_auth: false,
+                    scheduler:{
+                        rescheduling_url: `${window.location.origin}/reschedule/:booking_id`,
+                        cancellation_url: `${window.location.origin}/cancel/:booking_id`,
+                    }
+                  }
               }}
             />
           </div>
