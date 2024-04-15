@@ -50,8 +50,8 @@ function App() {
                   selectedConfiguration: {
                     requires_session_auth: false,
                     scheduler:{
-                        rescheduling_url: `${window.location.origin}/reschedule/:booking_id`,
-                        cancellation_url: `${window.location.origin}/cancel/:booking_id`,
+                        rescheduling_url: `${window.location.origin}/reschedule/?booking_id=:booking_id`,
+                        cancellation_url: `${window.location.origin}/cancel/?booking_id=:booking_id`,
                     }
                   }
               }}
